@@ -1,0 +1,38 @@
+info:
+  app:
+    name: ${spring.application.name}
+    description: "spring acl example"
+    version: @project.version@
+    artifact: @project.artifactId@
+
+server:
+  port: 8080
+
+db:
+  host: localhost
+  user: user
+  password: pass
+  database: test-db
+  port: 5432
+
+spring:
+  profiles: default
+  datasource:
+    url: jdbc:postgresql://${db.host}:${db.port}/${db.database}?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&currentSchema=${db.schema}
+    password: ${db.password}
+    username: ${db.user}
+  #    driver-class-name: org.postgresql.Driver
+  jpa:
+    properties:
+      hibernate-dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+  jackson.serialization.write_dates_as_timestamps: false
+  flyway:
+    outOfOrder: true
+    baseline-on-migrate: true
+
+#LOGGER
+logging.level.root: INFO
+logging.level.org.springframework.web: ERROR
